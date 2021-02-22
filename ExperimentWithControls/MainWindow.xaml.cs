@@ -32,8 +32,7 @@ namespace ExperimentWithControls
             any time the user changes the text in the TextBox*/
             number.Text = numberTextBox.Text;
         }
-
-        private void number_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void numberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             /*The event handler is called when the user enters text into the TextBox, but before the TextBox is updated.
              It uses a special method called int.TryParse to check if the text that the user entered is a number.
@@ -43,6 +42,47 @@ namespace ExperimentWithControls
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            if (sender is RadioButton radioButton)
+            {
+                number.Text = radioButton.Content.ToString();
+            }
+        }
+
+        private void smallSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            /*The value of the Slider is a fractional number with a decimal point.
+             This "0" converts it to a whole number.*/
+            number.Text = smallSlider.Value.ToString("0");
+        }
+
+        private void bigSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            /*The zero and hyphens cause the method to format any 10-digit number
+             as a US phone number.*/
+            number.Text = bigSlider.Value.ToString("000-000-0000");
+        }
+
+        private void myListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (myListBox.SelectedItem is ListBoxItem listBoxItem)
+            {
+                number.Text = listBoxItem.Content.ToString();
+            }
+        }
+
+        private void readOnlyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (readOnlyComboBox.SelectedItem is ListBoxItem listBoxItem)
+            {
+                number.Text = listBoxItem.Content.ToString();
+            }
+        }
+        private void editableComboBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is ComboBox comboBox)
+            {
+                number.Text = comboBox.Text;
+            }
 
         }
     }
